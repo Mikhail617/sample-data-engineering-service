@@ -131,7 +131,7 @@ data "aws_iam_policy_document" "ecs_task_assume_role_policy" {
   }
 }
 
-data "aws_iam_policy_document" "ecs_insance_assume_role_policy" {
+data "aws_iam_policy_document" "ecs_instance_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
 
