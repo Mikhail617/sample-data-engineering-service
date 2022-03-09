@@ -85,7 +85,7 @@ data "template_file" "task_definition_json" {
 # IAM INSTANCE PROFILE
 ######################################################################################################################################################
 
-resource "aws_iam_instance_profile" "sampl_svc_profile" {
+resource "aws_iam_instance_profile" "sample_svc_profile" {
   name = "sample-svc-profile"
   path = "/"
   role = aws_iam_role.ecs_instance_role.name
