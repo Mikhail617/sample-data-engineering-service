@@ -1,0 +1,32 @@
+[
+  {
+     "name": "sample-svc-ecs-container",
+     "image": "<your image id part>.dkr.ecr.us-east-1.amazonaws.com/sample-svc:latest",
+      "cpu": 4096,
+      "memory": 16384,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/sample-svc-lg",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group": "true"
+        }
+      },
+      "links": [],
+      "portMappings": [
+          { 
+              "hostPort": 5000,
+              "containerPort": 5000,
+              "protocol": "tcp"
+          }
+      ],
+      "essential": true,
+      "entryPoint": [],
+      "command": [],
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": []
+  }
+]
+
