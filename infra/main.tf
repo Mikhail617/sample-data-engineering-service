@@ -165,7 +165,7 @@ resource "aws_iam_role" "sample_svc_task_exec_role" {
 }
 
 resource "aws_iam_role" "ecs_instance_role" {
-  name = "ecs-instance-role-${aws_ecs_cluster.mse_svc_cluster.name}"
+  name = "ecs-instance-role-${aws_ecs_cluster.sample_svc_cluster.name}"
   assume_role_policy = "${data.aws_iam_policy_document.ecs_insance_assume_role_policy.json}"
 }
 
@@ -175,12 +175,12 @@ resource "aws_iam_role" "ecs_instance_role" {
 ######################################################################################################################################################
 
 resource "aws_iam_role_policy_attachment" "sample_svc_role_policy" {
-  role       = "${aws_iam_role.mse_svc_role.name}"
+  role       = "${aws_iam_role.sample_svc_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceRole"
 }
 
 resource "aws_iam_role_policy_attachment" "sample_svc_task_exec_role_policy" {
-  role       = "${aws_iam_role.mse_svc_task_exec_role.name}"
+  role       = "${aws_iam_role.sample_svc_task_exec_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
@@ -317,7 +317,7 @@ resource "aws_launch_configuration" "sample_ecs_instance"{
     instance_type = "m4.4xlarge"
     image_id = "${data.aws_ami.ecs_ami.id}"
     security_groups = ["${aws_security_group.load_balancer_security_group.id}"]
-    iam_instance_profile = aws_iam_instance_profile.mse_svc_profile.name
+    iam_instance_profile = aws_iam_instance_profile.sample_svc_profile.name
     user_data              = "${data.template_file.user_data.rendered}"
     #lifecycle {
     #  ignore_changes         = ["ami", "user_data", "subnet_id", "key_name", "ebs_optimized", "private_ip"]
@@ -331,14 +331,14 @@ resource "aws_launch_configuration" "sample_ecs_instance"{
 
 resource "aws_autoscaling_group" "ecs_cluster_instances"{
     availability_zones = ["us-east-1a"]
-    name = "mse-svc-ecs-cluster-instances"
+    name = "sample-svc-ecs-cluster-instances"
     min_size = 1
     max_size = 1
     launch_configuration = "${aws_launch_configuration.sample_ecs_instance.name}"
 
     tag {
       key = "Name"
-      value = "MSE Service ASG"
+      value = "Sample Data Engineering Service ASG"
       propagate_at_launch = true
     }
 }
@@ -365,9 +365,9 @@ data "aws_ami" "ecs_ami" {
 #  ami                    = "${data.aws_ami.ecs_ami.id}"
 #  #subnet_id              =  "subnet-087e48d4db31e442d" #CHANGE THIS
 #  instance_type          = "t2.medium"
-#  iam_instance_profile   = aws_iam_instance_profile.mse_svc_profile.name
+#  iam_instance_profile   = aws_iam_instance_profile.sample_svc_profile.name
 #  vpc_security_group_ids = ["${aws_security_group.load_balancer_security_group.id}"]
-#  #key_name               = "mse-svc" #CHANGE THIS
+#  #key_name               = "sample-svc" #CHANGE THIS
 #  ebs_optimized          = "false"
 #  source_dest_check      = "false"
 #  user_data              = "${data.template_file.user_data.rendered}"
