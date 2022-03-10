@@ -1,0 +1,27 @@
+CREATING A NEW DATA ENGINEERING MICRO-SERVICE:
+
+I. copy the contents of https://github.com/Mikhail617/sample-data-engineering-service
+
+II. replace the word 'sample' with the name or abbreviation of your new micro-service (in the code as well as in the example commands)
+
+III. Develop and dockerize your new app
+
+IV. Test running it locally
+
+	 docker run sample-svc -p 5000:5000
+
+V. Create a new image repository in ECR (make sure you give it the same name as the resource in your terraform files)
+
+VI. Build and push your dockerized service image to the new repository
+	1) docker build . -t sample-svc
+	2) docker tag sample-svc:latest 645128252975.dkr.ecr.us-east-1.amazonaws.com/sample-svc:latest
+	3) docker push 645128252975.dkr.ecr.us-east-1.amazonaws.com/sample-svc:latest
+
+VII. Deploy!
+
+	1) cd into your project dir /infra
+	2) terraform init
+	   terraform plan
+	   terraform apply
+	  
+VIII. Verify the new service is running properly in AWS console 
