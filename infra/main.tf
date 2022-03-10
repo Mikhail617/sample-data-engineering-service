@@ -166,7 +166,7 @@ resource "aws_iam_role" "sample_svc_task_exec_role" {
 
 resource "aws_iam_role" "ecs_instance_role" {
   name = "ecs-instance-role-${aws_ecs_cluster.sample_svc_cluster.name}"
-  assume_role_policy = "${data.aws_iam_policy_document.ecs_insance_assume_role_policy.json}"
+  assume_role_policy = "${data.aws_iam_policy_document.ecs_instance_assume_role_policy.json}"
 }
 
 
